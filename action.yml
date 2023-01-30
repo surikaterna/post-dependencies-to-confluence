@@ -1,0 +1,12 @@
+name: Action Template
+description: What the template does
+inputs:
+  some-input:
+    description: 'Tell me what this does'
+    default: ''
+outputs:
+  some-output:
+    description: 'What is provided to following actions'
+runs:
+  using: node16
+  main: lib/index.js
