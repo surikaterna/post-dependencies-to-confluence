@@ -3,10 +3,10 @@ import axios from 'axios';
 import { assertPage, Page } from './parse/assertPage';
 
 export const getCurrentPage = async (): Promise<Page> => {
-  const confluenceUrl = getInput('CONFLUENCE_URL');
-  const username = getInput('CONFLUENCE_USER');
-  const password = getInput('CONFLUENCE_TOKEN');
-  const contentId = getInput('CONTENT_ID');
+  const confluenceUrl = getInput('confluence-url');
+  const username = getInput('confluence-user');
+  const password = getInput('confluence-token');
+  const contentId = getInput('confluence-content-id');
 
   const url = `${confluenceUrl}/wiki/rest/api/content/${contentId}`;
   const res = await axios<unknown>({
@@ -26,7 +26,7 @@ export const getCurrentPage = async (): Promise<Page> => {
 };
 
 const getInput = (name: string): string => {
-  const input = core.getInput(name) || process.env[name];
+  const input = core.getInput(name);
 
   if (!input) {
     throw new Error(`Required input ${name} not provided`);

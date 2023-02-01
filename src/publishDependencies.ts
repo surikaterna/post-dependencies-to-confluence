@@ -5,10 +5,10 @@ import { Page } from './parse/assertPage';
 import { Dependency } from './parseDependencies';
 
 export const publishDependencies = async (dependencies: Array<Dependency>, page: Page): Promise<void> => {
-  const confluenceUrl = core.getInput('CONFLUENCE_URL');
-  const username = core.getInput('CONFLUENCE_USER');
-  const password = core.getInput('CONFLUENCE_TOKEN');
-  const contentId = core.getInput('CONTENT_ID');
+  const confluenceUrl = core.getInput('confluence-url');
+  const username = core.getInput('confluence-user');
+  const password = core.getInput('confluence-token');
+  const contentId = core.getInput('confluence-content-id');
 
   const markup = createMarkup(dependencies);
 
