@@ -34,7 +34,7 @@ jobs:
         with:
           node-version: 16
       - name: Check external dependencies
-        uses: surikaterna/check-external-dependencies@v1.0.0
+        uses: surikaterna/check-external-dependencies@v1.0.1
         with:
           internal-dependency-pattern: 'surikat'
       - name: Post To Confluence
