@@ -34,13 +34,14 @@ jobs:
         with:
           node-version: 16
       - name: Check external dependencies
+        id: check-external-dependencies
         uses: surikaterna/check-external-dependencies@v1.0.1
         with:
           internal-dependency-pattern: 'surikat'
       - name: Post To Confluence
         uses: surikaterna/post-dependencies-to-confluence@v1.0.0
         with:
-          dependency-input-name: 'external-dependencies'
+          dependencies: ${{ steps.check-external-dependencies.outputs.external-dependencies }}
           confluence-url: ${{ secrets.URL }}
           confluence-user: ${{ secrets.USER }}
           confluence-token: ${{ secrets.TOKEN }}

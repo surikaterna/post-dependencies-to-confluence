@@ -1,7 +1,6 @@
 import * as core from '@actions/core';
 import { getCurrentDependencies } from './getCurrentDependencies';
 import { getCurrentPage } from './getCurrentPage';
-import { getDependencyInputName } from './getDependencyInputName';
 import { getPackageJson } from './getPackageJson';
 import { mutMergeDependencies } from './mutMergeDependencies';
 import { parseDependencies } from './parseDependencies';
@@ -10,11 +9,10 @@ import { publishDependencies } from './publishDependencies';
 async function run(): Promise<void> {
   try {
     // Read from previous actions
-    const dependencyInputName = getDependencyInputName();
-    const dependenciesJson = core.getInput(dependencyInputName);
+    const dependenciesJson = core.getInput('dependencies');
 
     if (dependenciesJson === '') {
-      core.debug(`Aborting without error. Got no dependencies from the ${dependencyInputName} input`);
+      core.debug(`Aborting without error. Got no dependencies`);
       return;
     }
 
