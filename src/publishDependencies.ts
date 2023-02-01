@@ -11,6 +11,7 @@ export const publishDependencies = async (dependencies: Array<Dependency>, page:
   const contentId = core.getInput('confluence-content-id');
 
   const markup = createMarkup(dependencies);
+  core.debug(`Will publish to the "${page.title}" page`);
 
   const url = `${confluenceUrl}/wiki/rest/api/content/${contentId}`;
   await axios({
