@@ -5,10 +5,10 @@ import { parseTable } from './parse/parseTable';
 import { Dependency } from './parseDependencies';
 
 export const getCurrentDependencies = async (): Promise<Array<Dependency>> => {
-  const confluenceUrl = getInput('CONFLUENCE_URL');
-  const username = getInput('CONFLUENCE_USER');
-  const password = getInput('CONFLUENCE_TOKEN');
-  const contentId = getInput('CONTENT_ID');
+  const confluenceUrl = getInput('confluence-url');
+  const username = getInput('confluence-user');
+  const password = getInput('confluence-token');
+  const contentId = getInput('confluence-content-id');
 
   const url = `${confluenceUrl}/wiki/rest/api/content/${contentId}?expand=body.atlas_doc_format`;
   const res = await axios<unknown>({
