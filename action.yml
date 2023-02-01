@@ -1,9 +1,8 @@
 name: Post Dependencies To Confluence
 description: Replace a Confluence page with the list of dependencies provided as input
 inputs:
-  external-dependencies:
-    description: 'Dependencies for the current system running this action'
-    default: '[]'
+  dependency-input-name:
+    description: 'Name of the output of a previous action containing dependencies'
   confluence-url:
     description: 'The URL to the Confluence wiki to update'
     required: true
