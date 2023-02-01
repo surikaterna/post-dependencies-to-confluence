@@ -10,10 +10,11 @@ import { publishDependencies } from './publishDependencies';
 async function run(): Promise<void> {
   try {
     // Read from previous actions
-    const dependenciesJson = core.getInput(getDependencyInputName());
+    const dependencyInputName = getDependencyInputName();
+    const dependenciesJson = core.getInput(dependencyInputName);
 
     if (dependenciesJson === '') {
-      core.debug('Aborting without error. Got no dependencies');
+      core.debug(`Aborting without error. Got no dependencies from the ${dependencyInputName} input`);
       return;
     }
 
