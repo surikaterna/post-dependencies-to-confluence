@@ -1,22 +1,15 @@
-Action Template
-===============
+Post Dependencies To Confluence
+===============================
 
-# TODO
-
-1. Update the description & workflow steps
-2. Update the action.yml file
-3. Rename from "Action Template" to whatever the actions is called, in the title AND yml.
-4. Finalize the logic
-5. Compile and commit the compiled bundle
-6. Create a v1.0.0 branch to reference
-
-{Describe the action briefly}
+Take a JSON list of dependencies as input and post them to a configured Confluence wiki page.
 
 # Workflow
 
-* What it does initially
-* What happens in the logic
-* The final outcome and output
+* Get the dependencies provided from a previous action
+* Get the current dependencies from the configured wiki page
+* Merge the new and existing dependencies
+* Convert to markup
+* Update the wiki page replacing the content with the new table of dependencies
 
 # Usage
 
@@ -30,9 +23,9 @@ on:
       - develop
 
 jobs:
-  check_external_dependencies:
+  update_external_dependencies:
     runs-on: ubuntu-latest
-    name: Action Template
+    name: Update External Dependencies
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -40,8 +33,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: Current action name
-        uses: surikaterna/action-template@v1.0.0
+      - name: Check external dependencies
+        uses: surikaterna/check-external-dependencies@v1.0.0
         with:
-          some-arg: 'input-value'
+          internal-dependency-pattern: 'surikat'
+      - name: Post To Confluence
+        uses: surikaterna/post-dependencies-to-confluence@v1.0.0
+        with:
+          dependency-input-name: 'external-dependencies'
+          confluence-url: ${{ secrets.URL }}
+          confluence-user: ${{ secrets.USER }}
+          confluence-token: ${{ secrets.TOKEN }}
+          confluence-content-id: ${{ secrets.CONTENT_ID }}
 ```

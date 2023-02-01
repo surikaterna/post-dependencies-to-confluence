@@ -1,16 +1,28 @@
 import * as core from '@actions/core';
-import { someFunc } from './someFunc';
+import { getCurrentDependencies } from './getCurrentDependencies';
+import { getCurrentPage } from './getCurrentPage';
+import { getDependencyInputName } from './getDependencyInputName';
+import { getPackageJson } from './getPackageJson';
+import { mutMergeDependencies } from './mutMergeDependencies';
+import { parseDependencies } from './parseDependencies';
+import { publishDependencies } from './publishDependencies';
 
 async function run(): Promise<void> {
   try {
     // Read from previous actions
-    const someInput = core.getInput('some-input');
+    const dependenciesJson = core.getInput(getDependencyInputName());
 
-    // ...logic
-    const someOutput = await someFunc(someInput);
+    if (dependenciesJson === '') {
+      core.debug('Aborting without error. Got no dependencies');
+      return;
+    }
 
-    // Set output for following actions
-    core.setOutput('some-output', someOutput);
+    const packageJson = await getPackageJson();
+    const serviceDependencies = parseDependencies(dependenciesJson);
+    const [wikiDependencies, page] = await Promise.all([getCurrentDependencies(), getCurrentPage()]);
+
+    const dependencies = mutMergeDependencies(wikiDependencies, serviceDependencies, packageJson.name);
+    await publishDependencies(dependencies, page);
   } catch (error) {
     if (error instanceof Error) {
       core.setFailed(error.message);
