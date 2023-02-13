@@ -17,7 +17,7 @@ async function run(): Promise<void> {
     }
 
     const packageJson = await getPackageJson();
-    const serviceDependencies = parseDependencies(dependenciesJson);
+    const serviceDependencies = parseDependencies(dependenciesJson, packageJson.name);
     const [wikiDependencies, page] = await Promise.all([getCurrentDependencies(), getCurrentPage()]);
 
     const dependencies = mutMergeDependencies(wikiDependencies, serviceDependencies, packageJson.name);

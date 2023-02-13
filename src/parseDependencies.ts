@@ -10,7 +10,7 @@ const assertObject = (data: unknown): data is object => typeof data === 'object'
 const assertDependency = (dep: unknown): dep is Dependency => assertObject(dep) && 'name' in dep && 'version' in dep && 'license' in dep;
 const assertDependencies = (data: Array<unknown>): data is Array<Dependency> => data.every(assertDependency);
 
-export const parseDependencies = (json: string): Array<Dependency> => {
+export const parseDependencies = (json: string, name: string): Array<Dependency> => {
   const dependencies = <unknown>JSON.parse(json);
 
   if (!assertArray(dependencies)) {
@@ -21,5 +21,5 @@ export const parseDependencies = (json: string): Array<Dependency> => {
     throw new Error('Not a valid dependency list');
   }
 
-  return dependencies;
+  return dependencies.map((d) => ({ ...d, systems: name }));
 };

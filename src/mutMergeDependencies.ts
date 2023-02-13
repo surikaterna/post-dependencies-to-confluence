@@ -15,7 +15,7 @@ export const mutMergeDependencies = (wikiDependencies: Array<Dependency>, servic
     if (wikiDep) {
       wikiDep.systems = joinServiceNames(addServiceName(splitServiceNames(wikiDep.systems), name));
     } else {
-      wikiDependencies.push({ ...serviceDep, systems: name });
+      wikiDependencies.push({ ...serviceDep });
     }
   });
 
@@ -28,4 +28,4 @@ const sortDependenciesAsc = (dependencies: Array<Dependency>): Array<Dependency>
   dependencies.sort((a, b) => a.name.localeCompare(b.name) || a.version.localeCompare(b.version));
 const joinServiceNames = (serviceNames: Array<string>): string => sortNamesAsc(serviceNames).join(', ');
 const removeServiceName = (names: Array<string>, name: string): Array<string> => names.filter((n) => n !== name);
-const addServiceName = (names: Array<string>, name: string): Array<string> => names.concat(name);
+const addServiceName = (names: Array<string>, name: string): Array<string> => (names.includes(name) ? names : names.concat(name));

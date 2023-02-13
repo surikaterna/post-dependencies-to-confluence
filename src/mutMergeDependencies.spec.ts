@@ -41,22 +41,26 @@ describe('#mutMergeDependencies', () => {
       {
         name: 'dep-e',
         version: '3.0.0',
-        license: 'MIT'
+        license: 'MIT',
+        systems: name
       },
       {
         name: 'dep-d',
         version: '^2.2.0',
-        license: 'MIT'
+        license: 'MIT',
+        systems: name
       },
       {
         name: 'dep-f',
         version: '2.0.0',
-        license: 'MIT'
+        license: 'MIT',
+        systems: name
       },
       {
         name: 'dep-b',
         version: '^2.2.0',
-        license: 'MIT'
+        license: 'MIT',
+        systems: name
       }
     ];
 
